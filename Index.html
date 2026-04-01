@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dynamic Blurred Twitch Stream</title>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: black;
+  }
+
+  /* Hidden blurred background stream */
+  .bg-stream {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120%;  /* slightly larger for nice blur edges */
+    height: 120%;
+    transform: translate(-50%, -50%);
+    filter: blur(20px) brightness(0.6); /* blur + darken */
+    z-index: 0;
+    pointer-events: none; /* make it non-interactive */
+  }
+
+  /* Visible overlay player */
+  .overlay-stream {
+    position: relative;
+    width: 80%;
+    max-width: 1280px;
+    aspect-ratio: 16/9;
+    border-radius: 12px;
+    overflow: hidden;
+    z-index: 1;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+  }
+
+  iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+</style>
+</head>
+<body>
+
+<!-- Blurred background Twitch player -->
+<iframe
+  class="bg-stream"
+  src="https://player.twitch.tv/?channel=joenova_163&parent=localhost&autoplay=true&muted=true"
+  allowfullscreen
+  scrolling="no">
+</iframe>
+
+<!-- Main visible Twitch player -->
+<div class="overlay-stream">
+  <iframe
+    src="https://player.twitch.tv/?channel=joenova_163&parent=localhost&autoplay=true"
+    allowfullscreen
+    scrolling="no">
+  </iframe>
+</div>
+
+</body>
+</html>
